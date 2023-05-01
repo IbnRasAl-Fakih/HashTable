@@ -12,7 +12,7 @@ public class MyHashTable<K, V> {
 
         @Override
         public String toString() {
-            return  "{" + key + " " + value + "}";
+            return  "{" + key + " = " + value + "}";
         }
     }
 
@@ -32,6 +32,10 @@ public class MyHashTable<K, V> {
 
 
     public int size() {
+        return M;
+    }
+
+    public int numOfElements() {
         return size;
     }
 
@@ -40,7 +44,7 @@ public class MyHashTable<K, V> {
     }
 
     private int hash(K key) {
-        return 1;
+        return Math.abs(key.hashCode() % M);
     }
 
     public void put(K key, V value) {
@@ -119,7 +123,7 @@ public class MyHashTable<K, V> {
     }
 
     public void print() {
-        for (int index = 0; index < size; index++) {
+        for (int index = 0; index < M; index++) {
             HashNode<K, V> temp = buckets[index];
             while (temp != null) {
                 System.out.println(temp.toString());
@@ -127,4 +131,15 @@ public class MyHashTable<K, V> {
             }
         }
     }
+
+    public int countElements(int index) {
+        int res = 0;
+        HashNode<K, V> temp = buckets[index];
+        while (temp != null) {
+            res++;
+            temp = temp.next;
+        }
+        return res;
+    }
+
 }
